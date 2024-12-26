@@ -28,6 +28,7 @@ if (!backendConnectionString || !jwt_key || !myEmail) {
 
 const registerUser = async (req, res) => {
   try {
+    console.log(req.body)
 
     if (req.file) {
       createLogs({
@@ -180,16 +181,23 @@ const registerUser = async (req, res) => {
       });
       //Saves the data in the DB
       const result = await userData.save()
-
-      if (result.db_username == userData.db_username) {
-        createLogs({
-          route: "register",
-          LogMessage: `${local_email}'s data is saved in database.`,
-          originalUrl: req.originalUrl,
-          username: req.body.username,
-          ip: req.ip
+        .then(() => {
+          createLogs({
+            route: "register",
+            LogMessage: `${local_email}'s data is saved in database.`,
+            originalUrl: req.originalUrl,
+            username: req.body.username,
+            ip: req.ip
+          });
+        }).catch((err) => {
+          createLogs({
+            route: "register",
+            LogMessage: err,
+            originalUrl: req.originalUrl,
+            username: req.body.username,
+            ip: req.ip
+          });
         });
-      }
 
 
       //Sent Email LOGIC START--------------------------------------------------------------------------

@@ -33,7 +33,7 @@ const authMiddleware = (req, res, next) => {
 
     jwt.verify(authHeader, jwt_key, async (err, user) => {
 
-      if (err) return res.status(403).send({ message: "Invalid token" });
+      if (err) return res.status(403).send({ message: "User not authenticated" });
       req.user = user;
       next();
     });
@@ -45,7 +45,7 @@ const authMiddleware = (req, res, next) => {
       username: 'Not known yet',
       ip: req.ip
     });
-    res.status(401).send({ message: "No token provided" });
+    res.status(401).send({ message: "User not authenticated" });
   }
 };
 

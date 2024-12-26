@@ -10,8 +10,7 @@ const postSchema = new mongoose.Schema({
     required: true
   },
   db_postText: {
-    type: String,
-    required: true
+    type: String
   },
   db_postVisibility: {
     type: String,
@@ -33,8 +32,11 @@ const postSchema = new mongoose.Schema({
   db_postEditedStatus: {
     type: Boolean,
     default: false
+  },
+  db_postPics: {
+    type: [String]
   }
 });
 
 
-module.exports = mongoose.model("user",userSchema)
+module.exports = mongoose.model("post",postSchema)

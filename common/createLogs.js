@@ -19,7 +19,9 @@ function getRoute(route) {
     case 'getuser':
       return "getuser";
     case 'logout':
-       return "logout";
+      return "logout";
+    case 'createPosts':
+      return "createPosts";
     default:
       return "invalid Route";
   }
